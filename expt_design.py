@@ -11,7 +11,7 @@ class ExperimentDesign(object):
     and run experiment design.
     '''
     def __init__(self, parts_min, parts_max, total_parts,
-                 mcs_min=1, mcs_max=16, cores_per_mc=2, budget=20.0,
+                 mcs_min=1, mcs_max=16, cores_per_mc=2, budget=10.0,
                  num_parts_interpolate=20):
         '''
         Create an experiment design instance.
@@ -158,11 +158,11 @@ if __name__ == "__main__":
         help='Maximum number of machines to use in experiments')
 
     parser.add_argument('--cores-per-mc', type=int, default=2,
-        help='Number of cores or slots available per machine')
-    parser.add_argument('--budget', type=float, default=20.0,
-        help='Budget of experiment design problem')
+        help='Number of cores or slots available per machine, (default 2)')
+    parser.add_argument('--budget', type=float, default=10.0,
+        help='Budget of experiment design problem, (default 10.0)')
     parser.add_argument('--num-parts-interpolate', type=int, default=20,
-        help='Number of points to interpolate between min_parts and max_parts')
+        help='Number of points to interpolate between min_parts and max_parts, (default 20)')
 
     args = parser.parse_args()
 
@@ -171,6 +171,6 @@ if __name__ == "__main__":
         args.num_parts_interpolate)
 
     expts = ex.run()
-    print "Machines, InputFraction, Partitions, Weight"
+    print "Machines, Cores, InputFraction, Partitions, Weight"
     for expt in expts:
-        print "%d, %f, %d, %f" % (expt[2], expt[1], expt[0], expt[3])
+        print "%d, %d, %f, %d, %f" % (expt[2], expt[2] * args.cores_per_mc, expt[1], expt[0], expt[3])

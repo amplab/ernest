@@ -76,12 +76,9 @@ if __name__ == "__main__":
 
   model = pred.fit()
   
-  test_data = [[i, 1.0] for i in [16, 32, 48, 64, 96, 128]]
-  # test_data = []
-  # for i in xrange(1, 29):
-  #   test_data.append([1.0, i])
+  test_data = [[i, 1.0] for i in [16, 32, 48, 64, 128, 192, 256]]
   predicted_times = pred.predict_all(test_data)
   print
-  print "[Machines, Scale] Predicted Time"
+  print "Cores, Predicted Time"
   for i in xrange(0, len(test_data)):
-    print test_data[i], predicted_times[i]
+    print test_data[i][0], predicted_times[i]
