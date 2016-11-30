@@ -1,6 +1,6 @@
 ## Example of running Ernest using Apache Spark ML
 
-This document presents an example f using Ernest to build a performance
+This document presents an example of using Ernest to build a performance
 model for binary classification using Logistic Regression implemented in [Spark
 ML](http://spark.apache.org/mllib).
 
