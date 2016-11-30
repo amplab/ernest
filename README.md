@@ -29,8 +29,29 @@ pip install -r requirements.txt
 
 ### Using Ernest
 
-We describe at a high level the three main steps to use Ernest. You can also see our walk through for an example from Spark MLlib
+At a high level there are three main steps to use Ernest as summarized in the following figure.
 
-1. Determining what sample data points to collect. To do this we will be using experiment design implemented in [expt_design.py](expt_design.py). This will return the set of training data points required to build a performance model.  
-2. Collect running time for the set of training data points. These can be executed using [Spark EC2 scripts](http://github.com/amplab/spark-ec2) or Amazon EMR etc.
-3. Building a performance model and using it for prediction. To do this we create a CSV file with measurements from previous step and use [predictor.py](predictor.py). 
+1. Determining what sample data points to collect. To do this we will be using experiment design
+   implemented in [expt_design.py](expt_design.py). This will return the set of training data points
+required to build a performance model.  
+2. Collect running time for the set of training data points. These can be executed using [Spark EC2
+   scripts](http://github.com/amplab/spark-ec2) or Amazon EMR etc.
+3. Building a performance model and using it for prediction. To do this we create a CSV file with
+   measurements from previous step and use [predictor.py](predictor.py). 
+
+<p style="text-align: center;">
+  <img src="docs/img/ernest-workflow.png" title="Ernest Workflow" alt="Ernest Workflow" />
+</p>
+
+For a more detailed example you can see our [walk through](examples/mllib_rcv1.md) for building a
+performance model for Spark MLlib algorithms.
+
+## Limitations, Work In Progress
+
+One of the key insights that is used by Ernest is that a number of machine learning workloads are
+iterative in nature and have predictable structure in terms of computation and communication.
+Thus we are able to run a few iterations of the job on small samples of data to build a performance
+model. However this assumption may not be valid for all workloads.
+
+Currently to compare across instance types, we need to build a separate model for each instance
+type. We are working on developing new techniques to share performance models across instance types.
