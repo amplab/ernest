@@ -44,7 +44,9 @@ like [spark-ec2](https://github.com/amplab/spark-ec2) to do this.
 Once the cluster is up, we next run our target application with the sampling fraction and machine
 sizes listed above. An example for Logistic Regression with RCV1 is in the file
 [mllib_lr.py](mllib_lr.py) and a corresponding script to run this for various configurations is in
-[collect_data.sh](collect_data.sh).
+[collect_data.sh](collect_data.sh). One important thing to note here is that we only run 10
+iterations of the algorithm as that is sufficient for building a model. While training on the
+complete data, the number of iterations and other parameters can be tweaked.
 
 After we collect the necessary data we put it together in a CSV file to feed into the model builder.
 For the above example the [CSV file](rcv1-parsed.csv) looks as follows
@@ -64,7 +66,19 @@ looks like
 ```
 python predictor.py rcv1-parsed.csv
 ```
-This prints the predicted time taken to process the entire dataset when using up to 256 cores.
-Using this we can, for example, generate a plot that shows the scaling behavior for Logistic Regression 
-on the RCV1 dataset.
+This prints the predicted time taken to process the entire dataset when using up to 256 cores and
+the output for this case looks like
+```
+Cores, Predicted Time
+16 16.4412832993
+32 12.4735312069
+48 11.4279763052
+64 11.040126181
+...
+```
 
+Thus what we see is that the model predicts that as we go from 16 to 64 cores, the performance wins
+are limited as the time for 10 iterations only drops from 16.4s to 11s. This is because RCV1 is a
+very small dataset and at larger cluster sizes we spend more time on communication rather than on
+parallel computation. [Our paper](http://shivaram.org/publications/ernest-nsdi.pdf) contains more 
+examples.
