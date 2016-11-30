@@ -8,7 +8,7 @@ setup(
 	maintainer_email='shivaram@cs.berkeley.edu',
 	version='0.1',
 	description='Performance Prediction for Spark jobs.',
-	long_description=f('../README.md').read(),
+	long_description=open('../README.md').read(),
 	url='https://github.com/amplab/ernest',
 	license='Apache License 2.0',
 
