@@ -40,7 +40,7 @@ required to build a performance model.
    measurements from previous step and use [predictor.py](predictor.py). 
 
 <p style="text-align: center;">
-  <img src="docs/img/ernest-workflow.png" title="Ernest Workflow" alt="Ernest Workflow" />
+  <img src="docs/img/ernest-workflow.png" title="Ernest Workflow" alt="Ernest Workflow" style="width: 100%; max-width: 500px;" />
 </p>
 
 For a more detailed example you can see our [walk through](examples/mllib_rcv1.md) for building a
