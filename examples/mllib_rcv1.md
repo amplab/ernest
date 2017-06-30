@@ -66,19 +66,22 @@ looks like
 ```
 python predictor.py rcv1-parsed.csv
 ```
-This prints the predicted time taken to process the entire dataset when using up to 256 cores and
+This prints the predicted time taken to process the entire dataset when using up to 64 machines and
 the output for this case looks like
 ```
-Cores, Predicted Time
+Machines, Predicted Time
+4 44.6515640166
+8 25.4777295249
+12 19.36348049
 16 16.4412832993
-32 12.4735312069
-48 11.4279763052
-64 11.040126181
+20 14.7682298198
+24 13.7061636865
+28 12.9855393036
 ...
 ```
 
-Thus what we see is that the model predicts that as we go from 16 to 64 cores, the performance wins
-are limited as the time for 10 iterations only drops from 16.4s to 11s. This is because RCV1 is a
+Thus what we see is that the model predicts that as we go from 16 to 24 machines, the performance wins
+are limited as the time for 10 iterations only drops from 16.4s to 12.98s. This is because RCV1 is a
 very small dataset and at larger cluster sizes we spend more time on communication rather than on
 parallel computation. [Our paper](http://shivaram.org/publications/ernest-nsdi.pdf) contains more 
 examples.
