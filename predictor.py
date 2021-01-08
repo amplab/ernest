@@ -56,8 +56,8 @@ class Predictor(object):
       predicted = self.predict(p[0], p[1])
       training_errors.append(predicted / p[2])
 
-    training_errors = [abs(i-1.0) for i in training_errors]
-    print "Average training error %f%%" % (np.mean(training_errors)*100.0 )
+    training_errors = [str(np.around(i*100, 2)) + "%" for i in training_errors]
+    print "Prediction ratios are", ", ".join(training_errors)
     return self.model[0]
 
   def num_examples(self):
